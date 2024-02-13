@@ -24,12 +24,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 COPY . .
 RUN mkdir /tmp/sentry-versions
-RUN git describe --tags --dirty > /tmp/sentry-versions/central
+RUN git describe --tags --dirty > /tmp/sentry-versions/central || echo "No tags found" > /tmp/sentry-versions/central
 WORKDIR /server
-RUN git describe --tags --dirty > /tmp/sentry-versions/server
+RUN git describe --tags --dirty > /tmp/sentry-versions/server  || echo "No tags found" > /tmp/sentry-versions/server
 WORKDIR /client
-RUN git describe --tags --dirty > /tmp/sentry-versions/client
-
+RUN git describe --tags --dirty > /tmp/sentry-versions/client  || echo "No tags found" > /tmp/sentry-versions/client
 
 
 FROM node:${node_version}-slim

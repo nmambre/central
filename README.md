@@ -39,3 +39,8 @@ License
 -------
 
 All of ODK Central is licensed under the [Apache 2.0](https://raw.githubusercontent.com/getodk/central/master/LICENSE) License.
+
+Modifications
+-------------
+- Added preinstall and predeploy scripts for elestio
+- Modified service.dockerfile
