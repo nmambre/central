@@ -50,7 +50,7 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - SYSADMIN_EMAIL=${SYSADMIN_EMAIL}
-      - HTTPS_PORT=${HTTPS_PORT:-443}
+      - HTTPS_PORT=${UPSTREAM_HTTPS_PORT:-443}
       - NODE_OPTIONS=${SERVICE_NODE_OPTIONS:-}
       - DB_HOST=${DB_HOST:-postgres14}
       - DB_USER=${DB_USER:-odk}
@@ -92,8 +92,8 @@ services:
       - SENTRY_KEY=${SENTRY_KEY:-3cf75f54983e473da6bd07daddf0d2ee}
       - SENTRY_PROJECT=${SENTRY_PROJECT:-1298632}
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
     healthcheck:
       test: [ "CMD-SHELL", "nc -z localhost 80 || exit 1" ]
     restart: always
@@ -125,7 +125,7 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - SUPPORT_EMAIL=${SYSADMIN_EMAIL}
-      - HTTPS_PORT=${HTTPS_PORT:-443}
+      - HTTPS_PORT=${UPSTREAM_HTTPS_PORT:-443}
   enketo_redis_main:
     image: redis:7.2
     volumes:
